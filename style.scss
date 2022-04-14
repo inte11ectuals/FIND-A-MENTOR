@@ -1,0 +1,12 @@
+html{
+   font-size: 20px;
+
+	#grid{background-color:green; display:grid; padding:20px; 
+      grid-column-gap:20px; grid-row-gap:10px; grid-template-columns:200px 
+      
+      200px auto;}	
+
+	.grid-item{background-color:white; padding:20px; text-align:center;}
+
+	.grid-item:hover{background-color:rgb(32, 228, 228);}
+}
