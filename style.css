@@ -1,25 +1,0 @@
-html {
-  font-size: 20px;
-}
-
-html #grid {
-  background-color: green;
-  display: -ms-grid;
-  display: grid;
-  padding: 20px;
-  grid-column-gap: 20px;
-  grid-row-gap: 10px;
-  -ms-grid-columns: 200px   200px auto;
-      grid-template-columns: 200px   200px auto;
-}
-
-html .grid-item {
-  background-color: white;
-  padding: 20px;
-  text-align: center;
-}
-
-html .grid-item:hover {
-  background-color: #20e4e4;
-}
-/*# sourceMappingURL=style.css.map */
