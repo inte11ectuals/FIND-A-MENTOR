@@ -8,4 +8,9 @@ def index(request):
    return render(request, "main_web/index.html")
 
 def greet(request,name):
-   return HttpResponse(f"hello, {name.capitalize()} ")
+   #return HttpResponse(f"hello, {name.capitalize()} ")
+   return render(request,"main_web/layout.html",{
+   "name":name.capitalize() ,
+   })
+
+
