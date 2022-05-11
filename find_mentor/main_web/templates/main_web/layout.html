@@ -9,6 +9,10 @@
    <link rel="stylesheet" href="{% static 'main_web/layout.css'%}">
 </head>
 <body>
+
+   {%block section%}
+   {%endblock%}
+
    {% if name%}
    <h1> hello, {{name}}</h1>
    {%else %}
