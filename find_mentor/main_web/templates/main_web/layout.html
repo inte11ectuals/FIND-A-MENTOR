@@ -7,16 +7,40 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Find YourSelf A Mentor</title>
    <link rel="stylesheet" href="{% static 'main_web/layout.css'%}">
+
+
 </head>
 <body>
+   <div class="container ">
+      <header>
+         <nav class="border " id="navbar">
+            <a class="" id="home_button" href="{% url 'mentor_links:home'%}"> Home</a>
+            <a id="university-button" class=" " href="{% url 'mentor_links:uni'%}"> Universities</a>
+            <a id="mentors-button" class=" " href="{% url 'mentor_links:mentors'%}"> Mentors</a>
+            <a id="reviews-button" class=" " href="{% url 'mentor_links:reviews'%}"> Reviews</a>
+            <a class=" " href="{% url 'mentor_links:about'%}"> About</a>
+            <a id="signup-button" class=" " href="{% url 'mentor_links:signup'%}"> Signup</a>
+         </nav>
+      </header>
 
-   {%block section%}
-   {%endblock%}
 
-   {% if name%}
-   <h1> hello, {{name}}</h1>
-   {%else %}
-   <h1>hello random person</h1>
-   {%endif%}
+      {%block center_body%}
+      {%endblock%}
+
+      <footer class="border" id="footer">
+         <h6>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, delectus fugit sunt impedit vero libero excepturi sapiente facilis amet illum non expedita nihil ad, maxime architecto. Dolore fugiat eveniet illum alias facilis, illo molestiae et, esse voluptate soluta magnam, omnis excepturi accusantium veritatis. Voluptatem odit tenetur qui earum pariatur doloribus magni dolor nisi molestiae odio? Inventore id magni facilis, praesentium ipsam blanditiis natus velit minima ex ad tempora accusamus totam aperiam amet ullam dicta alias non asperiores voluptatem necessitatibus, modi incidunt ipsum nobis aliquam. Architecto, vitae quisquam. Mollitia, pariatur fugiat facilis in sint blanditiis? Ex porro veniam similique ullam saepe. Accusantium adipisci neque, voluptates sequi veritatis magni dignissimos ipsum veniam, ut ab iste odio vel blanditiis alias similique, repellendus recusandae harum facere deserunt nobis ratione odit. Sint at officia fugiat ducimus maxime placeat quas labore ea temporibus atque! Adipisci exercitationem dolores facilis ea iure magni praesentium similique vel soluta odio quia corporis fuga minima, natus totam officia possimus autem ipsa necessitatibus nostrum! Dicta reiciendis officia eligendi alias a. Nobis obcaecati dignissimos tempore culpa incidunt adipisci, quisquam, labore veniam facere voluptate velit soluta suscipit magnam? Maxime eos consequuntur ea rerum alias saepe temporibus, nulla necessitatibus nam pariatur magnam dolor odio nesciunt.
+
+         </h6>
+      </footer>
+
+   <!-- 
+      {% if name%}
+      <h1> hello, {{name}}</h1>
+      {%else %}
+      <h1>hello random person</h1>
+      {%endif%} -->
+
+</div>
 </body>
 </html>

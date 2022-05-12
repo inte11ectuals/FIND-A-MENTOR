@@ -1,3 +1,57 @@
-h1{
-   color: aqua;
+body{
+   margin: 0%;
+   padding: 0%;
 }
+
+.border{
+   border: 2px solid black;
+   margin: 4px 3px;
+   
+}
+header{
+   height: 50px;
+   background-color: #ca0813;
+   grid-area: header;
+   border-radius: 5px;
+}
+
+nav{
+   grid-area: navbar;
+   padding: 10px 23px;
+   /* transition: background-color 2s ease-in-out 2s; */
+   
+}
+nav a{
+   padding-inline: 10px;
+   text-decoration: none;
+   color:white;
+   margin: 0px 5px;
+}
+nav a:hover{
+   color: black;
+}
+
+#signup-button{
+   position: absolute;
+   right: 10px;
+}
+
+
+.container{
+   display: grid;
+   grid-gap: 0.5rem;
+   grid-template-areas: 
+   'header header header header'
+   'section section section section'
+   'footer footer footer footer'
+   ;
+}
+
+
+section{
+   grid-area: section;
+}
+footer{
+   grid-area: footer;
+}
+

@@ -18,14 +18,14 @@
 
       <h1>Add Tasks</h1>
       <!-- 'tasks:index' the post method takes the data and submit it to the following url "index" in this case -->
-      <form action="{% url 'tasks:tasks' %}" method="post">
+      <form action="{% url 'mentor_links:tasks' %}" method="post">
          {%csrf_token%}
          <!-- new task: <input type="text" name="task"> -->
          <br>
          {{forms_by_django}}
          <input type="submit">
       </form>
-      <a href="{% url 'tasks:index'%}">goto home</a>
+      <a href="{% url 'mentor_links:index'%}">goto home</a>
 
    </ul>
 </body>
