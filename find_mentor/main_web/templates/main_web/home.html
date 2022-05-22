@@ -3,9 +3,27 @@
 
 
 {% block center_body %}
-<section class="border">
 
-   <h1 >home page</h1>
+<section class="border" id="home_section">
    
+   <div class="boxes">
+     
+    <a  class="u-icon-1 mentee-box" href="{% url 'mentor_links:signup'%}"></a>
+
+    <a href="{% url 'mentor_links:signup'%}" id="find-mentor-txt">Find A Mentor</a>
+    
+    
+    <a class="u-icon-2 mentor-box" href="{% url 'mentor_links:signup'%}"></a>
+    
+    <a href="{% url 'mentor_links:signup'%}" id="become-mentor-txt">Become A Mentor</a>
+    
+
+    <h2 class="heading1" spellcheck="false">Looking for a mentor?<br>
+    </h2>
+    
+    <h4 class="def" spellcheck="false"> Here you'll find the best mentor suitable for your purposes and ambitions. we have all the qualified Mentors registered with us, that'll help you throughout your journey.</h4>
+
+
+   </div>
 </section>
 {% endblock %}
