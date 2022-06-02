@@ -1,4 +1,7 @@
 
+from enum import unique
+from pickle import FALSE
+from xml.parsers.expat import model
 from django.db import models
 
 import django.contrib.auth.models  # importing authentable users table from posgresql, fyam_database
@@ -6,78 +9,89 @@ import django.contrib.auth.models  # importing authentable users table from posg
 # Create your models here.
 
 class University(models.Model):
-   id = models.AutoField(primary_key=True,null=False)
    name=models.CharField(max_length=30)
    location=models.CharField(max_length=100)
 
 
 class Gikians(models.Model):
+   
    reg_no=models.IntegerField(primary_key=True )
   
-   id=models.ForeignKey(University,null=False,on_delete=models.CASCADE,to_field='id')
+   uni_id=models.ForeignKey(University,null=False,on_delete=models.CASCADE,to_field='id')
   
    username=models.CharField(max_length=50,unique=True,null=False)
-   hash = models.CharField(max_length=100,unique=True,null=False)
-   email=models.EmailField(unique=True,null=False)
+
+   hash = models.CharField(max_length=200,unique=True)
+   
+   email=models.EmailField(unique=True)
+   
    name=models.CharField(max_length=20)
-   year=models.IntegerField(unique=True,null=False)
+   
+   year=models.IntegerField(null=False)
+   
    faculty=models.CharField(max_length=10)
 
-   # class Meta:
-   #    verbose_name_plural = 'Gikians'
-
+   role = models.CharField(max_length=10)
 
    def __int__(self):
        return self.reg_no
 
-class Giki_societis(models.Model):
-   reg_no=models.ForeignKey(Gikians,null=False,on_delete=models.CASCADE,primary_key=True,to_field='reg_no')
+class Giki_socities(models.Model):
+   
+   reg_no=models.ForeignKey(Gikians,on_delete=models.CASCADE,to_field='reg_no')
+   
    socities = models.CharField(max_length=30)
-
+   
 
 class Giki_teams(models.Model):
-   reg_no=models.ForeignKey(Gikians,null=False,on_delete=models.CASCADE,primary_key=True)
+   reg_no=models.ForeignKey(Gikians,null=False,on_delete=models.CASCADE,to_field='reg_no')
+  
    teams = models.CharField(max_length=30)
-
+   
 
 class Mentor(models.Model):
-   reg_no=models.ForeignKey(Gikians,null=False,on_delete=models.CASCADE, related_name='%(class)s_regno_derived_from_Gikians_Model',primary_key=True)
+   reg_no=models.ForeignKey(Gikians,null=False,on_delete=models.CASCADE)
 
-   year=models.ForeignKey(Gikians,null=False,on_delete=models.CASCADE, related_name='%(class)s_year_derived_from_Gikians_model',to_field='year')
-
-   def __str__(self) :
-       return self.reg_no
+   year=models.IntegerField(null=False)
+ 
 
 class Mentees(models.Model):
-   reg=models.ForeignKey(Gikians,on_delete=models.CASCADE, related_name='%(class)s_reg_derived_from_Gikian_models',primary_key=True)
 
-   mentor_id=models.ForeignKey(Mentor,null=False,on_delete=models.CASCADE)
+   reg=models.ForeignKey(Gikians,on_delete=models.CASCADE,null=False,related_name='reg_no_is')
+
+   mentor_id=models.ForeignKey(Gikians,null=True,on_delete=models.CASCADE,to_field='reg_no',related_name='mentor_ids')
    
-   year = models.ForeignKey(Gikians,null=False,on_delete=models.CASCADE,to_field='year')
+   year = models.IntegerField()
+
 
 class Mentees_of_mentors(models.Model):
-   reg=models.ForeignKey(Mentor,on_delete=models.CASCADE,primary_key=True)
+   reg=models.ForeignKey(Gikians,on_delete=models.CASCADE)
 
-   men_id=models.ForeignKey(Mentees,null=False,on_delete=models.CASCADE,to_field='reg')
+   men_id=models.ForeignKey(Gikians,null=True,on_delete=models.CASCADE,to_field='reg_no',related_name='men_ids')
+  
 
 class Mentor_skills(models.Model):
-   reg=models.ForeignKey(Mentor,on_delete=models.CASCADE,primary_key=True,to_field='reg_no')
+
+   reg=models.ForeignKey(Gikians,on_delete=models.CASCADE,to_field='reg_no')
+
    skills=models.CharField(max_length=40)
 
 class Mentor_best_courses(models.Model):
-   reg=models.ForeignKey(Mentor,on_delete=models.CASCADE,primary_key=True,to_field='reg_no')
+   reg=models.ForeignKey(Gikians,on_delete=models.CASCADE,to_field='reg_no')
+   
    best_courses=models.CharField(max_length=40)
 
 
+class Mentees_weak_courses(models.Model):
+   reg=models.ForeignKey(Gikians,on_delete=models.CASCADE,to_field='reg_no')
 
-class Mentee_weak_courses(models.Model):
-   reg=models.ForeignKey(Mentees,on_delete=models.CASCADE,primary_key=True,to_field='reg')
    weak_courses=models.CharField(max_length=40)
 
 class Mentee_interests(models.Model):
-   reg=models.ForeignKey(Mentees,on_delete=models.CASCADE,primary_key=True,to_field='reg')
+   reg=models.ForeignKey(Gikians,on_delete=models.CASCADE,to_field='reg_no')
+  
    interests = models.CharField(max_length=40)
-
+   id = models.AutoField(primary_key=True,null=False)
    
 
 
