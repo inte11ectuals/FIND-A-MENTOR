@@ -15,16 +15,17 @@ urlpatterns = [
    path("signout",views.signout,name="signout"),
    path('superuser',views.dashboard,name="dashboard_super"),
    path('user',views.dashboard,name="dashboard_user"),
+   
+   path("uni",views.unis,name="uni"),
+   path("about",views.about,name="about"),
 
    
    
    #path("<str:name>", views.greet,name="greet"),  #adding a genral url
    
 
-   path("task",views.task,name="uni"),
    path("task",views.task,name="mentors"),
    path("task",views.task,name="reviews"),
-   path("task",views.task,name="about"),
 
 
 

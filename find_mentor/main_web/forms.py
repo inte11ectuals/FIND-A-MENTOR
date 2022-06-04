@@ -16,7 +16,7 @@ from django.contrib.auth import login, authenticate
 from django import forms
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit
 from crispy_forms.helper import FormHelper
-
+from django.utils.safestring import mark_safe
 
 Uni_choices=[
    ('OTHER','OTHER'),
@@ -31,19 +31,15 @@ class Newtaskform(forms.Form):
 class Signupform(UserCreationForm):
       first_name=forms.CharField(max_length=200,     label="First Name")
       
-      
-      
       last_name=forms.CharField(max_length=200,label="Last Name") 
       
       email = forms.EmailField()
-      
       
       university = forms.CharField(
          max_length=30,
          widget=forms.TextInput(attrs={'id': 'uni-input-field',})
          )
      
-    
 
       apl_for=forms.CharField(widget=forms.RadioSelect(choices=[("Mentor","Mentor"),("Mentee","Mentee")]))
 
@@ -64,9 +60,24 @@ class Signupform(UserCreationForm):
       class Meta:
          model=User
          fields=["username","first_name","last_name","email","password1","password2","university","reg_no","year","faculty","apl_for"]
+         
 
 class Signinform(UserCreationForm):
    class Meta:
       model=User
       fields=["username","password"]
+
+course_choices = [
+   ('CS101','CS101'),
+   ('CS131','CS131'),
+
+]
+
+class best_courses_form():
+   course_1 = forms.CharField(widget=forms.Select(choices=[course_choices]))   
+
+   course_2 = forms.CharField(widget=forms.Select(choices=[course_choices]))   
+
+   course_3 = forms.CharField(widget=forms.Select(choices=[course_choices]))   
+
 
