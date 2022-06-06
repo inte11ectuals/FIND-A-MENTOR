@@ -8,7 +8,7 @@ from .models import Gikians,University,Giki_socities,Giki_teams,Mentee_interests
 
 class Gikian_admin(admin.ModelAdmin):
    list_display=(
-      'reg_no','username','hash','email','name','year','faculty','role','uni_id_id'
+      'reg_no','role','username','hash','email','name','year','faculty','uni_id_id'
    )
 
 class University_admin(admin.ModelAdmin):

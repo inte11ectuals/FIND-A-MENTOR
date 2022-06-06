@@ -9,7 +9,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render,redirect
 
 from django.urls import reverse
-from rest_framework.parsers import JSONParser 
 from django.http.response import JsonResponse
 from .serializers import GikiansSerializer
 from .models import Gikians
@@ -287,30 +286,39 @@ def dashboard(request):
             row14 = ''
             row15 = ''
             user = request.user.username
-            print(user)
+            print(f'user logged in is: {user}')
 
             try:
 
 
-               c13.execute("""select main_web_gikians.reg_no as "gikians_reg_no",
+               c15.execute("""
+               select main_web_gikians.reg_no as "gikians_reg_no",
 		         main_web_gikians.name,main_web_gikians.year,main_web_gikians.faculty,
 		         main_web_gikians.email
 				
-               from main_web_gikians,main_web_mentees
+               from main_web_gikians
 
-               where  	
+               where  	main_web_gikians.role = 'mentee' and
 
-		         main_web_mentees.reg_id = main_web_gikians.reg_no
+		         main_web_gikians.reg_no in (
+                  select main_web_mentees_of_mentors.men_id_id from main_web_mentees_of_mentors, main_web_gikians
+		            where main_web_gikians.username = %s
+		            and main_web_gikians.reg_no = main_web_mentees_of_mentors.reg_id)
   
-		         order by main_web_gikians.name;
-
-               """,)
+		         order by main_web_gikians.name;          
                
+               """,(user,))
+               row13 = c15.fetchall()
+               print(f'query 13 is: {row13}')
+
+
 
                c14.execute('select main_web_gikians.reg_no from main_web_gikians where username = %s ',(request.user.username,))
                
                reg_no = c14.fetchall() #reg_no
                
+
+
                c15.execute("insert into main_web_mentor_best_courses (best_courses,reg_id) values(%s,%s)"
                , (course_1,reg_no[0]))
 
@@ -365,10 +373,11 @@ def dashboard(request):
             # return redirect("/main_web/dashboard_user",{"mentee":row13,})
             return render(request,'main_web/user_dashboard_mentor.html',{
               "mentee":row13,
+              "username":request.user.username,
              })
             
          else:
-             return render(request,'main_web/user_dashboard_mentor.html',)
+             return render(request,'main_web/user_dashboard_mentor.html',{"username":request.user.username,})
         
 ##################################################
 
@@ -412,22 +421,22 @@ def dashboard(request):
               
                reg_no = c14.fetchall() #reg_no
 
-
-               c13.execute("""select main_web_gikians.reg_no as "gikians_reg_no",
+               
+               c13.execute("""select main_web_gikians.reg_no as "gikians_reg_no",main_web_gikians.role,
 		         main_web_gikians.name,main_web_gikians.year,main_web_gikians.faculty,
 		         main_web_gikians.email
 				
-               from main_web_gikians,main_web_mentees
+               from main_web_gikians
 
-               where  	
+               where main_web_gikians.role = 'mentor' and
 
-		         main_web_mentees.mentor_id_id = main_web_gikians.reg_no
-				 and main_web_gikians.role = 'mentor'
-				 
+		         main_web_gikians.reg_no in (
+                  select main_web_mentees_of_mentors.reg_id from main_web_mentees_of_mentors, main_web_gikians
+		            where main_web_gikians.username = %s
+		            and main_web_gikians.reg_no = main_web_mentees_of_mentors.men_id_id)
   
-		         order by main_web_gikians.name;
-
-               """,)
+		         order by main_web_gikians.name;          
+               """,(request.user.username,))
                
 
                
@@ -483,11 +492,13 @@ def dashboard(request):
             print('mentee 1 login')            
 
             # return redirect("/main_web/dashboard_user",{"mentee":row13,})
-            return render(request,'main_web/user_dashboard_mentee.html',{
+            return render(request,'main_web/user_dashboard_mentee.html',{"username":request.user.username,
               "mentee":row13,
              })
          else:
-             return render(request,'main_web/user_dashboard_mentee.html',)
+             return render(request,'main_web/user_dashboard_mentee.html',{
+                  "username":request.user.username,
+             })
 
 
 
@@ -495,7 +506,6 @@ def dashboard(request):
          
    else:
       return render(request,'main_web/home.html')
-
 
 
 def unis(request):

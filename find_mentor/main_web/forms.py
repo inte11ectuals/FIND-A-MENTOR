@@ -14,8 +14,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate 
 from django import forms
-from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit
-from crispy_forms.helper import FormHelper
 from django.utils.safestring import mark_safe
 
 Uni_choices=[
